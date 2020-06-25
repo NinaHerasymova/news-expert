@@ -55,7 +55,7 @@ const showNews = (data, root) => {
   }
 }
 
-fetch('https://renemorozowich.com/wp-json/wp/v2/posts')
+fetch('https://renemorozowich.com/wp-json/wp/v2/posts?count=1')
 .then((response) => {
   return response.json();
 })
