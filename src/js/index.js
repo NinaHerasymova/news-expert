@@ -1,10 +1,13 @@
 const block = document.getElementById('block');
 const sidebar = document.getElementById('sidebar-news');
+const showMore = document.getElementById('showMore');
+let pageCounter = 1;
 
 const showNews = (data, root) => {
   for (const i of data) {
     let item = document.createElement('div');
-    let title = document.createElement('h2');
+    let description = document.createElement('div');
+    let title = document.createElement('h4');
     let link = document.createElement('a');
     let subData = document.createElement('div');
     let date = document.createElement('span');
@@ -31,7 +34,6 @@ const showNews = (data, root) => {
       category.innerText = data.name;
     });
 
-
     item.className = 'item';
     link.href = i.link;
     link.innerText = i.title.rendered;
@@ -43,25 +45,29 @@ const showNews = (data, root) => {
     date.innerText = i.date.substring(0, 10);
     author.innerText = 'Evgeny Tretyak';
 
+    description.className = 'description';
+
     subData.appendChild(date);
     subData.appendChild(arrow);
     subData.appendChild(author);
 
+    description.appendChild(title);
+    description.appendChild(subData);
     item.appendChild(category);
-    item.appendChild(title);
-    item.appendChild(subData);
+    item.appendChild(description);
     root.appendChild(item);
 
   }
 }
 
-fetch('https://renemorozowich.com/wp-json/wp/v2/posts?count=1')
+fetch('https://renemorozowich.com/wp-json/wp/v2/posts')
 .then((response) => {
   return response.json();
 })
 .then((data) => {
   showNews(data, block);
 });
+
 
 fetch('https://renemorozowich.com/wp-json/wp/v2/posts?categories=33')
 .then((response) => {
@@ -71,3 +77,21 @@ fetch('https://renemorozowich.com/wp-json/wp/v2/posts?categories=33')
   showNews(data, sidebar);
 });
 
+const loadPosts = () => {
+  fetch(`https://renemorozowich.com/wp-json/wp/v2/posts?page=${pageCounter}`)
+  .then((response) => {
+    if(response.status===200){
+      return response.json();
+    }
+    else{
+      alert(23456789)
+    }
+  })
+  .then((data) => {
+      showNews(data, block);
+  });
+
+  pageCounter++;
+}
+
+showMore.addEventListener('click', loadPosts)
