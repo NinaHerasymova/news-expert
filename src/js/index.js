@@ -1,7 +1,7 @@
 const block = document.getElementById('block');
 const sidebar = document.getElementById('sidebar-news');
 const showMore = document.getElementById('showMore');
-let pageCounter = 1;
+let pageCounter = 2;
 
 const showNews = (data, root) => {
   for (const i of data) {
@@ -84,13 +84,12 @@ const loadPosts = () => {
       return response.json();
     }
     else{
-      alert(23456789)
+      alert('It is the last page!')
     }
   })
   .then((data) => {
       showNews(data, block);
   });
-
   pageCounter++;
 }
 
