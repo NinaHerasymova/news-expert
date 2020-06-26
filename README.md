@@ -1,4 +1,4 @@
-#news-expert
+# news-expert
 
 Blog with developer news from all the world
 
@@ -8,10 +8,10 @@ To launch the project, follow these commands:
 
 * git clone https://github.com/NinaHerasymova/news-expert.git
 
-* go to "develop" branch
+* git checkout develop
 
 * yarn install (or npm install)
 
 * yarn start
 
-##Demo of this project you can find here:[GitHubPages](https://ninaherasymova.github.io/news-expert/)
+## Demo of this project you can find here: [GitHubPages](https://ninaherasymova.github.io/news-expert/)
