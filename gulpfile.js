@@ -15,6 +15,7 @@ const through2 = require('through2');
 const gulpUglify = require('gulp-uglify');
 const gulpSourcemaps = require('gulp-sourcemaps');
 const gulpBabel = require('gulp-babel');
+const ghPages = require('gulp-gh-pages');
 
 const SRC = './src';
 const BUILD = './build';
@@ -119,6 +120,11 @@ const buildScripts = (mode = 'development') => done => {
     : undefined;
 };
 
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+  .pipe(ghPages());
+});
+
 gulp.task('clean', () => del([paths.build.root], { dot: true }));
 
 gulp.task('copy', () => {
@@ -185,5 +191,7 @@ gulp.task('serve', () => {
   browserSync.watch(paths.reloadWatch.img).on('change', reload);
   browserSync.watch(paths.reloadWatch.html).on('change', reload);
 });
+
+
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));

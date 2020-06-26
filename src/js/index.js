@@ -1,6 +1,7 @@
 const block = document.getElementById('block');
 const sidebar = document.getElementById('sidebar-news');
 const showMore = document.getElementById('showMore');
+const showMoreValue = document.getElementById('showMoreValue');
 let pageCounter = 2;
 
 const showNews = (data, root) => {
@@ -78,17 +79,18 @@ fetch('https://renemorozowich.com/wp-json/wp/v2/posts?categories=33')
 });
 
 const loadPosts = () => {
+  showMoreValue.innerText = "Loading"
   fetch(`https://renemorozowich.com/wp-json/wp/v2/posts?page=${pageCounter}`)
   .then((response) => {
-    if(response.status===200){
+    if (response.status === 200) {
       return response.json();
-    }
-    else{
+    } else {
       alert('It is the last page!')
     }
   })
   .then((data) => {
-      showNews(data, block);
+    showNews(data, block);
+    showMoreValue.innerText = "Show more"
   });
   pageCounter++;
 }

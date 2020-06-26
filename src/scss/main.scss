@@ -19,7 +19,7 @@ body {
     &-container {
       max-width: 1170px;
       margin: 0 auto;
-      padding: 0px 2vw 0 2vw;
+      padding: 0 2vw 0 2vw;
       display: flex;
       justify-content: space-between;
 
@@ -51,15 +51,11 @@ body {
         align-items: center;
       }
     }
-
-
   }
-
   .main {
     max-width: 1210px;
     margin: 0 auto;
-
-    &-content {
+       &-content {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -218,7 +214,8 @@ body {
   right: 0;
   height: 50px;
   z-index: 9999999;
-  &__btn{
+
+  &__btn {
     position: relative;
     display: flex;
     align-items: center;
@@ -228,14 +225,16 @@ body {
     cursor: pointer;
     transition: .4s;
   }
-  &__icon{
+
+  &__icon {
     display: block;
     position: relative;
     background: white;
     width: 90%;
     height: 4px;
     transition: .4s;
-    &::after{
+
+    &::after {
       content: "";
       display: block;
       position: absolute;
@@ -245,7 +244,8 @@ body {
       transition: .4s;
       top: 8px;
     }
-    &::before{
+
+    &::before {
       content: "";
       display: block;
       position: absolute;
@@ -256,6 +256,7 @@ body {
       top: -8px;
     }
   }
+
   &__container {
     position: fixed;
     text-align: center;
@@ -272,32 +273,39 @@ body {
     overflow: hidden;
     background-color: #292C2F;
   }
-  &__list{
+
+  &__list {
     transition: .5s;
     list-style: none;
     padding-left: 0;
     margin-top: -50px;
   }
-  &__item{
+
+  &__item {
     font-size: 26px;
     padding-bottom: 15px;
   }
-  &__link{
+
+  &__link {
     text-decoration: none;
     color: #fff;
   }
-  &__checkbox{
+
+  &__checkbox {
     display: none;
+
     &:checked ~ .mobile-menu__nav {
       opacity: 1;
     }
+
     &:checked ~ .mobile-menu__container {
       height: 100%;
     }
 
     &:checked ~ .mobile-menu__btn .mobile-menu__icon {
       background: transparent;
-      &::before{
+
+      &::before {
         top: 8px;
       }
     }
@@ -320,7 +328,7 @@ body {
 }
 
 @media (max-width: 767px) {
-   .header__wrapper-container__menu {
+  .header__wrapper-container__menu {
     transform: scale(0);
   }
   .header__wrapper-container__search {
