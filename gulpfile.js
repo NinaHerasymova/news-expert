@@ -62,7 +62,7 @@ const supportedBrowsers = [
   'operamobile >= 12.1',
   'samsung >= 4'
 ];
-const babelConfig = { targets: { browsers: supportedBrowsers } };
+const babelConfig = {targets: {browsers: supportedBrowsers}};
 
 const verify = () => {
   const write = (file, enc, cb) => {
@@ -75,16 +75,16 @@ const verify = () => {
     cb();
   };
 
-  return through2({ objectMode: true }, write, end);
+  return through2({objectMode: true}, write, end);
 };
 
 const styles = (paths, outputFilename, outputPath) => {
   return gulp
-    .src(paths)
-    .pipe(sass().on('error', sass.logError))
-    .pipe(debug({ title: 'scss:' }))
-    .pipe(concat(outputFilename))
-    .pipe(gulp.dest(outputPath));
+  .src(paths)
+  .pipe(sass().on('error', sass.logError))
+  .pipe(debug({title: 'scss:'}))
+  .pipe(concat(outputFilename))
+  .pipe(gulp.dest(outputPath));
 };
 
 const buildScripts = (mode = 'development') => done => {
@@ -99,39 +99,43 @@ const buildScripts = (mode = 'development') => done => {
 
   ['development', 'production'].includes(mode)
     ? pump(
-        [
-          gulp.src(paths.src.js),
-          vinylNamed(),
-          webpackStream(streamMode, webpack),
-          gulpSourcemaps.init({ loadMaps: true }),
-          through2.obj(function(file, enc, cb) {
-            const isSourceMap = /\.map$/.test(file.path);
-            if (!isSourceMap) this.push(file);
-            cb();
-          }),
-          gulpBabel({ presets: [['@babel/env', babelConfig]] }),
-          ...(mode === 'production' ? [gulpUglify()] : []),
-          gulpSourcemaps.write('./'),
-          gulp.dest(paths.build.js),
-          browserSync.stream()
-        ],
-        done
-      )
+    [
+      gulp.src(paths.src.js),
+      vinylNamed(),
+      webpackStream(streamMode, webpack),
+      gulpSourcemaps.init({loadMaps: true}),
+      through2.obj(function (file, enc, cb) {
+        const isSourceMap = /\.map$/.test(file.path);
+        if (!isSourceMap) this.push(file);
+        cb();
+      }),
+      gulpBabel({presets: [['@babel/env', babelConfig]]}),
+      ...(mode === 'production' ? [gulpUglify()] : []),
+      gulpSourcemaps.write('./'),
+      gulp.dest(paths.build.js),
+      browserSync.stream()
+    ],
+    done
+    )
     : undefined;
 };
 
-gulp.task('deploy', function() {
-  return gulp.src('./build/**/*')
-  .pipe(ghPages());
+const options = {
+  remoteUrl: "https://github.com/NinaHerasymova/news-expert.git",
+  branch: "master"
+};
+gulp.task('deploy', function () {
+  gulp.src("build/**/*.*")
+  .pipe(ghPages(options));
 });
 
-gulp.task('clean', () => del([paths.build.root], { dot: true }));
+gulp.task('clean', () => del([paths.build.root], {dot: true}));
 
 gulp.task('copy', () => {
   return gulp
-    .src(paths.src.public)
-    .pipe(copy(paths.build.root, { prefix: 1 }))
-    .pipe(verify());
+  .src(paths.src.public)
+  .pipe(copy(paths.build.root, {prefix: 1}))
+  .pipe(verify());
 });
 
 gulp.task('styles', callback => {
@@ -145,20 +149,20 @@ gulp.task('scripts', callback => {
 
 gulp.task('img', () => {
   return gulp
-    .src(paths.src.img, { since: gulp.lastRun('img') })
-    .pipe(gulp.dest(paths.build.img));
+  .src(paths.src.img, {since: gulp.lastRun('img')})
+  .pipe(gulp.dest(paths.build.img));
 });
 
 gulp.task('fileInclude', callback => {
   gulp
-    .src([SRC + '/html/index.html'])
-    .pipe(
-      fileInclude({
-        prefix: '@@',
-        basepath: '@file'
-      })
-    )
-    .pipe(gulp.dest(BUILD));
+  .src([SRC + '/html/index.html'])
+  .pipe(
+    fileInclude({
+      prefix: '@@',
+      basepath: '@file'
+    })
+  )
+  .pipe(gulp.dest(BUILD));
 
   callback();
 });
@@ -191,7 +195,6 @@ gulp.task('serve', () => {
   browserSync.watch(paths.reloadWatch.img).on('change', reload);
   browserSync.watch(paths.reloadWatch.html).on('change', reload);
 });
-
 
 
 gulp.task('default', gulp.series('build', gulp.parallel('watch', 'serve')));
