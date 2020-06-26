@@ -1,5 +1,5 @@
 {
-  "name": "social_network",
+  "name": "news-expert",
   "version": "1.0.0",
   "scripts": {
     "start": "gulp",
