@@ -227,5 +227,9 @@ body {
     transform: scale(0); }
   .header__wrapper-container__search {
     transform: scale(0); }
+  .main-content__main__title-wrapper {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
   .mobile-menu {
     display: flex; } }
